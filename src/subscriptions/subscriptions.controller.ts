@@ -4,6 +4,7 @@ import { SubscriptionsService } from './subscriptions.service';
 import { SubscriptionSearchDto } from './SubscriptionSearch.dto';
 import { SubscriptionUpdateDto } from './SubscriptionUpdate.dto';
 import { SubscriptionCreateDto } from './SubscriptionCreate.dto';
+import { SubscriptionConsentValidationPipe } from 'src/subscription-consent-validation.pipe';
 
 @Controller('subscriptions')
 export class SubscriptionsController {
@@ -23,7 +24,8 @@ export class SubscriptionsController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    createSubscription( @Body() subscriptionCreateDto: SubscriptionCreateDto ){
+    @UsePipes(new SubscriptionConsentValidationPipe())
+    createSubscription( @Body() subscriptionCreateDto: SubscriptionCreateDto){
             return this.subscriptionsService.createSubscription(subscriptionCreateDto)
     }
 
@@ -45,6 +47,4 @@ export class SubscriptionsController {
             throw new NotFoundException('Subscription does not exsit')
         }
     }
-
-
 }
