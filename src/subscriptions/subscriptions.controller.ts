@@ -5,6 +5,8 @@ import { SubscriptionSearchDto } from './SubscriptionSearch.dto';
 import { SubscriptionUpdateDto } from './SubscriptionUpdate.dto';
 import { SubscriptionCreateDto } from './SubscriptionCreate.dto';
 import { SubscriptionConsentValidationPipe } from 'src/subscription-consent-validation.pipe';
+import { Subscription } from './schemas/Subscriptions.schema'
+
 
 @Controller('subscriptions')
 export class SubscriptionsController {
@@ -14,36 +16,38 @@ export class SubscriptionsController {
     }
 
     @Get()
-    getAllSubscriptions(@Query() param:SubscriptionSearchDto){
-        if(Object.keys(param).length){
+    @UsePipes(ValidationPipe)
+    async getAllSubscriptions(@Query() param:SubscriptionSearchDto):Promise<Subscription[]>{
+        if (Object.keys(param).length) {
             return this.subscriptionsService.subscriptionSearch(param)
         } else {
-        return this.subscriptionsService.getAllSubscriptions()
+            return this.subscriptionsService.getAllSubscriptions()
         }
     }
 
     @Post()
     @UsePipes(ValidationPipe)
-    @UsePipes(new SubscriptionConsentValidationPipe())
-    createSubscription( @Body() subscriptionCreateDto: SubscriptionCreateDto){
-            return this.subscriptionsService.createSubscription(subscriptionCreateDto)
+    // @UsePipes(new SubscriptionConsentValidationPipe())
+    async createSubscription( @Body() subscriptionCreateDto: SubscriptionCreateDto): Promise <Subscription>{
+            return await this.subscriptionsService.createSubscription(subscriptionCreateDto)
     }
 
     @Get('/:id')
-    getSubscriptionById(@Param('id') id: string){
-        return this.subscriptionsService.getSubscriptionById(id)
+    async getSubscriptionById(@Param('id') id: string){
+        return await this.subscriptionsService.getSubscriptionById(id)
     }
 
     @Put('/:id/email')
-    updateSubscription(@Param('id') id: string, @Body() subscriptionUpdateDto:SubscriptionUpdateDto){
+    async updateSubscription(@Param('id') id: string, @Body() subscriptionUpdateDto:SubscriptionUpdateDto): Promise<Subscription>{
         subscriptionUpdateDto.id = id
-        return this.subscriptionsService.updateSubscription(subscriptionUpdateDto)
+        return await this.subscriptionsService.updateSubscription(subscriptionUpdateDto)
     }
 
     @Delete('/:id')
     @HttpCode(204)
-    deleteSubscription(@Param('id') id:string){
-        if(this.subscriptionsService.deleteSubscription(id)){
+    async deleteSubscription(@Param('id') id:string){
+        let subscriptionId = await this.subscriptionsService.deleteSubscription(id)
+        if(!subscriptionId){
             throw new NotFoundException('Subscription does not exsit')
         }
     }
