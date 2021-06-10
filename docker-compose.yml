@@ -1,0 +1,22 @@
+services:
+    api:
+        build: .
+        container_name: subscriptionservice
+        depends_on:
+            - mongo
+        ports:
+            - "5001:5001"
+    db:
+        image: "mongo"
+        environment:
+            MONGODB_CONNECTION: mongodb+srv://Jacopo:jacopo123
+
+    mongo:
+        image: mongo
+        container_name: adidaschallengejacopo
+        restart: always
+volumes:
+        - mongodata:/data/adidasemailservices
+
+volumes:
+        db-data:
