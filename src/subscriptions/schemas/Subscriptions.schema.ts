@@ -1,15 +1,5 @@
-// export const SubscriptionSchema=({
-    // id: String,
-    // email: String,
-    // firstName: String,
-    // gender: String,
-    // consent: Boolean,
-    // dateOfBirth: Date
-// })
-
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-    
 export type SubscriptionDocument = Subscription & Document;
 
 @Schema()

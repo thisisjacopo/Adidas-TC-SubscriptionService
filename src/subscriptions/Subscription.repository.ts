@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose'
-import { create } from 'eslint/lib/rules/*';
 import { SubscriptionCreateDto } from './SubscriptionCreate.dto';
-import { SubscriptionSchema, Subscription, SubscriptionDocument } from './schemas/Subscriptions.schema'
+import { Subscription, SubscriptionDocument } from './schemas/Subscriptions.schema'
 import { SubscriptionSearchDto } from './SubscriptionSearch.dto';
 import { SubscriptionUpdateDto } from './SubscriptionUpdate.dto';
 

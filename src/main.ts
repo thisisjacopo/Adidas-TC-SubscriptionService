@@ -6,7 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const options = new DocumentBuilder().setTitle('email service API')
+  const options = new DocumentBuilder().setTitle('subscription service API')
   .setDescription('Jacopo Rodighiero Adidas Challenge')
   .setVersion('1.0.0')
   .build();
