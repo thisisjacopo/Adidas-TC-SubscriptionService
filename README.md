@@ -20,7 +20,7 @@
 
 ## Api Overview:
 
-The data is saved on a MongoDb cluster and connects via mongoose, all the access details can be found in the `.env` , `.env.example` and `app.secrets.ts` files, for challenge purpose I decided to leave the 3 files to improve accessibility and readability of code.
+The data is saved on a MongoDb cluster and connects via mongoose, all the access details can be found in the `.env` , `.env.example` and `app.secrets.ts` files, for challenge purpose I decided to leave the 3 files to improve accessibility and readability of code. The Folder also contains `Adidas-Subscriptions.postman_collection.json` which is further documentation for the endpoints I have used.
 
 Validations are implemented in the DTOs files and in the `subscription-consent-validation.pipe.ts` file.
 
@@ -34,6 +34,16 @@ You would need NVM and Nodejs installed in your machine.
 `$ npm run start:dev || $ npm run start`
 
 ----------------------------------------------------------------------------------------------------
+
+## Api Endpoints:
+
+GET `/subscriptions`
+POST `/subscriptions`
+GET `/subscriptions/{id}`
+DELETE  `/subscriptions/{id}`
+PUT  `/subscriptions/{id}/email`
+
+-----------------------------------------------------------------------
 
 ## Docker Instructions:
 
